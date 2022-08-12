@@ -1,0 +1,27 @@
+{
+  "name": "dicoding-backend-app-submission",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "lint": "eslint ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkholidkamali/dicoding-backend-app-submission.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkholidkamali/dicoding-backend-app-submission/issues"
+  },
+  "homepage": "https://github.com/mkholidkamali/dicoding-backend-app-submission#readme",
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}

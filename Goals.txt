@@ -1,0 +1,198 @@
+
+-- BOOKSHELF CRITERIA --
+
+
+1. Add Book
+- Method : Post
+- URL    : /books
+- Body Request :
+    {
+        "name"      : string,
+        "year"      : number,
+        "author"    : string,
+        "summary"   : string,
+        "publisher" : string,
+        "pageCount" : number,
+        "readPage"  : number,
+        "reading"   : boolean
+    }
+- Object :
+    {
+        "id"         : "Qbax5Oy7L8WKf74l", //nanoid
+        "name"       : "Buku A",
+        "year"       : 2010,
+        "author"     : "John Doe",
+        "summary"    : "Lorem ipsum dolor sit amet",
+        "publisher"  : "Dicoding Indonesia",
+        "pageCount"  : 100,
+        "readPage"   : 25,
+        "finished"   : false, //pageCount === readPage
+        "reading"    : false,
+        "insertedAt" : "2021-03-04T09:11:44.598Z", //new Date().toISOString()
+        "updatedAt"  : "2021-03-04T09:11:44.598Z"  //same?
+    }
+- Response
+    A. Fail : Name empty 
+        - Status : 400
+        - Response Body :
+            {
+                "status" : "fail",
+                "message": "Gagal menambahkan buku. Mohon isi nama buku"
+            }
+    B. Fail : readpage > pageCount
+        - Status : 400
+        - Response Body :
+            {
+                "status" : "fail",
+                "message": "Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount"
+            }
+    C. Fail : Generic Error
+        - Status : 500
+        - Response Body :
+            {
+                "status" : "error",
+                "message": "Buku gagal ditambahkan"
+            }
+    D. Success
+        - Status : 201
+        - Response Body :
+            {
+                "status" : "success",
+                "message": "Buku berhasil ditambahkan",
+                "data" : {
+                    "bookId": "1L7ZtDUFeGs7VlEt"
+                }
+            }
+
+2. Get All Book
+- Method : Get
+- URL    : /books
+- Body Request :
+    A. With books
+        {
+            "status": "success",
+            "data": {
+                "books": [
+                    {
+                        "id": "Qbax5Oy7L8WKf74l",
+                        "name": "Buku A",
+                        "publisher": "Dicoding Indonesia"
+                    },
+                    {
+                        "id": "1L7ZtDUFeGs7VlEt",
+                        "name": "Buku B",
+                        "publisher": "Dicoding Indonesia"
+                    },
+                    {
+                        "id": "K8DZbfI-t3LrY7lD",
+                        "name": "Buku C",
+                        "publisher": "Dicoding Indonesia"
+                    }
+                ]
+            }
+        }
+    B. No Books
+        {
+            "status": "success",
+            "data": {
+                "books": []
+            }
+        }
+
+3. Show Book By Id
+- Method : Get
+- URL    : /books/{bookId}
+- Body Request :
+    A. Not Found
+        - Status : 404
+        - Response Body :
+            {
+                "status": "fail",
+                "message": "Buku tidak ditemukan"
+            }
+    B. Found
+        - Status : 200
+        - Response Body :
+            {
+                "status": "success",
+                "data": {
+                    "book": {
+                        "id": "aWZBUW3JN_VBE-9I",
+                        "name": "Buku A Revisi",
+                        "year": 2011,
+                        "author": "Jane Doe",
+                        "summary": "Lorem Dolor sit Amet",
+                        "publisher": "Dicoding",
+                        "pageCount": 200,
+                        "readPage": 26,
+                        "finished": false,
+                        "reading": false,
+                        "insertedAt": "2021-03-05T06:14:28.930Z",
+                        "updatedAt": "2021-03-05T06:14:30.718Z"
+                    }
+                }
+            }
+
+
+4. Update Book By Id
+- Method : Put
+- URL    : /books/{bookId}
+- Body Request :
+    {
+        "name"      : string,
+        "year"      : number,
+        "author"    : string,
+        "summary"   : string,
+        "publisher" : string,
+        "pageCount" : number,
+        "readPage"  : number,
+        "reading"   : boolean
+    }
+- Response Body :
+    A. Fail : Name is empty
+        - Status  : 400
+        - Response :
+            {
+                "status": "fail",
+                "message": "Gagal memperbarui buku. Mohon isi nama buku"
+            }
+    B. Fail : readPage > pageCount
+        - Status  : 400
+        - Response :
+            {
+                "status": "fail",
+                "message": "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount"
+            }
+    C. Fail : Id Not Found
+        - Status  : 404
+        - Response :
+            {
+                "status": "fail",
+                "message": "Gagal memperbarui buku. Id tidak ditemukan"
+            }
+    D. Success
+        - Status  : 200
+        - Response :
+            {
+                "status": "success",
+                "message": "Buku berhasil diperbarui"
+            }
+
+5. Delete Book
+- Method : Delete
+- URL    : /books/{bookId}
+- Response Body :
+    A. Gagal
+        - Status  : 404
+        - Response :
+            {
+                "status": "fail",
+                "message": "Buku gagal dihapus. Id tidak ditemukan"
+            }
+    B. Success
+        - Status  : 200
+        - Response :
+            {
+                "status": "success",
+                "message": "Buku berhasil dihapus"
+            }
